@@ -1,0 +1,25 @@
+server:
+  port: 6060
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://43.138.254.32:3306/contacts?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: JayChou0118
+#
+#mybatis:
+#  configuration:
+#    mapper-locations: classpath:mapper/*.xml
+mybatis:
+  mapper-locations: classpath:**/*.xml
+
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #指定实体类位置，在mapper中就不用写全路径
+    type-aliases-package: com.ziran.addresslist.entity
+    #映射mapper的位置，和dao层接口对应，一定要对应mapper映射xml文件的所在路径
+#    mapper-locations: classpath:mapper/*.xml
+  mapper-locations: classpath*:mapper/*.xml
