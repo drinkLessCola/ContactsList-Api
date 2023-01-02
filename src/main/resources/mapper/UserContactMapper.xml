@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <!-- 本映射文件对应 UsersMapper 接口 -->
+<mapper namespace="com.ziran.addresslist.mapper.UserContactMapper">
+        <insert id="addUserContact">
+                insert into contacts.usercontacts(user_id, contact_id) values
+                (#{userId}, #{contactId})
+        </insert>
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 本映射文件对应 LoginMapper 接口 -->
+<mapper namespace="com.ziran.addresslist.mapper.ContactsMapper">
+
+    <insert id="addContact" useGeneratedKeys="true" keyProperty="contactId">
+        insert into contacts.contacts(user_id, name, mobile, home_tel, work_tel, company_address, birthday, remark) values
+        (#{userId}, #{name}, #{mobile}, #{homeTel}, #{workTel}, #{companyAddress}, #{birthday}, #{remark})
+    </insert>
+
+    <update id="updateContact" parameterType="com.ziran.addresslist.entity.Contacts">
+        update contacts.contacts
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="mobile != null">mobile = #{mobile},</if>
+            <if test="homeTel != null">home_tel = #{homeTel},</if>
+            <if test="workTel != null">work_tel = #{workTel}, </if>
+            <if test="companyAddress != null">company_address = #{companyAddress},</if>
+            <if test="birthday != null">birthday = #{birthday},</if>
+            <if test="remark != null">remark =  #{remark},</if>
+        </trim>
+        where contact_id = #{contactId} and user_id = #{userId}
+    </update>
+
+    <delete id="deleteContact">
+        delete from contacts.contacts
+        where contact_id = #{contactId} and user_id = #{userId}
+    </delete>
+
+    <select id="getContactById" resultType="com.ziran.addresslist.entity.Contacts">
+        select * from contacts.contacts where contact_id = #{contactId}
+    </select>
+
+    <select id="getAllContact" resultType="com.ziran.addresslist.entity.Contacts">
+        select *
+        from contacts.contacts
+        where user_id = #{userId}
+    </select>
+    <select id="getContactByUserId" resultType="com.ziran.addresslist.entity.Contacts">
+        select *
+        from contacts.usercontacts as A join contacts.contacts as B on A.contact_id = B.contact_id
+        where A.user_id = #{userId}
+    </select>
+</mapper>

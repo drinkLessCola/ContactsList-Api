@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 本映射文件对应 LoginMapper 接口 -->
+<mapper namespace="com.ziran.addresslist.mapper.LoginMapper">
+    <insert id="register" useGeneratedKeys="true" keyProperty="userId">
+        insert into contacts.users(user_name, password) values
+        (#{userName}, #{password})
+    </insert>
+    <select id="login" resultType="com.ziran.addresslist.entity.Users">
+        select * from contacts.users where user_name = #{userName} and password = #{password} and is_delete = false
+    </select>
+</mapper>

@@ -27,13 +27,15 @@ public class Users implements Serializable {
 
     /** 用户昵称 */
     @Size(max= 30)
-    private String name;
+    @TableField("user_name")
+    private String userName;
 
     /** 密码（加盐） */
     @Size(max= 100)
     private String password;
 
     /** 创建时间 */
+    @TableField("create_name")
     private Date createTime;
 
 }

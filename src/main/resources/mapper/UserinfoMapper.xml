@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 本映射文件对应 UsersMapper 接口 -->
+<mapper namespace="com.ziran.addresslist.mapper.UserinfoMapper">
+    <insert id="addUserInfo">
+        insert into contacts.userinfo(user_id, contact_id) values
+        (#{userId}, #{contactId})
+    </insert>
+
+    <update id="updateUserInfo" parameterType="com.ziran.addresslist.entity.Contacts">
+        update contacts.contacts
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="mobile != null">mobile = #{mobile},</if>
+            <if test="homeTel != null">home_tel = #{homeTel},</if>
+            <if test="workTel != null">work_tel = #{workTel}, </if>
+            <if test="companyAddress != null">company_address = #{companyAddress},</if>
+            <if test="birthday != null">birthday = #{birthday},</if>
+            <if test="remark != null">remark =  #{remark},</if>
+        </trim>
+        where user_id = #{userId} and contact_id = (
+            select contact_id
+            from userinfo
+            where user_id = #{userId}
+        )
+    </update>
+
+    <!--    <resultMap id="userinfoMap" type="com.ziran.addresslist.entity.Contacts">-->
+<!--        <result property="name" column="name"></result>-->
+<!--        <result property="mobile" column="mobile"></result>-->
+<!--        <result property="homeTel" column="home_tel"></result>-->
+<!--        <result property="workTel" column="work_tel"></result>-->
+<!--        <result property="companyAddress" column="company_address"></result>-->
+<!--        <result property="birthday" column="birthday"></result>-->
+<!--        <result property="remark" column="remark"></result>-->
+<!--    </resultMap>-->
+    <select id="getUserInfo" resultType="com.ziran.addresslist.entity.Contacts">
+        select *
+        from contacts.userinfo natural join contacts
+        where user_id = #{userId}
+    </select>
+
+</mapper>
