@@ -41,8 +41,10 @@ public class ContactsService {
             Integer contactId = newContact.getContactId();
             Integer userId = newContact.getUserId();
             if(contactId == null || userId == null) return 0;
+            System.out.println(contactId + " " + userId);
             Contacts oldContact = contactsMapper.getContactById(contactId);
             if(oldContact == null || oldContact.getUserId() != userId) return 1;
+            System.out.println("?????");
             contactsMapper.updateContact(newContact);
             return 200;
         } catch (Exception e) {

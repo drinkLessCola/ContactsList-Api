@@ -63,18 +63,31 @@ public class ContactsController {
 
     @PutMapping("/update")
     public JSONObject updateContact(@RequestBody Contacts newContact) {
-        Integer res = contactsService.updateContact(newContact);
+        System.out.println("update mapping");
         JSONObject result = new JSONObject();
-        int code = 200;
-        String msg = "修改成功!";
+        try {
+            Integer res = contactsService.updateContact(newContact);
+            int code = 200;
+            String msg = "修改成功!";
 
-        switch (res) {
-            case 0 : code = 400; msg = "修改失败"; break;
-            case 1 : code = 400; msg = "要修改的通讯录信息不存在"; break;
+            switch (res) {
+                case 0:
+                    code = 400;
+                    msg = "修改失败";
+                    break;
+                case 1:
+                    code = 400;
+                    msg = "要修改的通讯录信息不存在";
+                    break;
+            }
+            result.put("code", code);
+            result.put("msg", msg);
+            return result;
+        } catch(Exception e) {
+            result.put("code", 400);
+            result.put("msg", "修改失败！");
+            return result;
         }
-        result.put("code", code);
-        result.put("msg", msg);
-        return result;
     }
 
     @DeleteMapping("/delete/{userId}/{contactId}")

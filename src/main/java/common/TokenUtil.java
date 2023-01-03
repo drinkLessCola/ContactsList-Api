@@ -71,17 +71,12 @@ public class TokenUtil{
      *
      * @param request
      * @return
-     * 获取 cookie 中的 token
+     * 获取 token
      */
     public static String getToken(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if(cookies == null) return null;
-        for (Cookie c : cookies) {
-            if (c.getName().equals("token")) {
-                return c.getValue();
-            }
-        }
-        return null;
+        String token = request.getHeader("authorization");
+        token = token.replace("Bearer ", "");
+        return token;
     }
 
     /**
